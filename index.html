@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      overflow: hidden;
+      background: black;
+      color: white;
+    }
+
+    #inicio, #formulario {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #videoFondo {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de inicio -->
+  <div id="inicio">
+    <img src="imagen.png" width="300" alt="Imagen central"><br>
+    <button onclick="empezar()">Haz clic</button>
+  </div>
+
+  <!-- Video de fondo -->
+  <video id="videoFondo" autoplay loop muted>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Música de fondo -->
+  <audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Formulario -->
+  <div id="formulario" style="display: none;">
+    <h2>Ingresa tus datos</h2>
+    <input type="text" placeholder="Nombre"><br>
+    <input type="password" placeholder="Contraseña"><br>
+    <button onclick="enviarDatos()">Enviar</button>
+    <p id="espera" style="display:none;">Procesando datos...</p>
+  </div>
+
+  <script>
+    function empezar() {
+      document.getElementById('inicio').style.display = 'none';
+      document.getElementById('videoFondo').style.display = 'block';
+      document.getElementById('formulario').style.display = 'block';
+      document.getElementById('musica').play();
+    }
+
+    function enviarDatos() {
+      document.getElementById('espera').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('musica').pause();
+        document.getElementById('musica').currentTime = 0;
+        // Redirige a la segunda página donde sí está todo lo final
+        window.location.href = 'final.html';
+      }, 8000);
+    }
+  </script>
+
+</body>
+</html>
