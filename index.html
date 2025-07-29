@@ -81,24 +81,36 @@
   <!-- Formulario -->
   <div id="formulario">
     <h2>Ingresa tus datos</h2>
-    <input type="text" placeholder="Nombre"><br>
-    <input type="password" placeholder="Contraseña"><br>
-    <button onclick="enviarDatos()">Enviar</button>
-  </div>
+    <input id="nombre" type="text" placeholder="Nombre"><br>
+    <input id="clave" type="password" placeholder="Contraseña"><br>
+    <button onclick="enviarDatos()">Enviar</button>  
+    <p id="contadorRegistros">Se registraron 0 personas.</p>
+</div>
 
+
+  
   <script>
     function empezar() {
       document.getElementById('inicio').style.display = 'none';
       document.getElementById('videoFondo').style.display = 'block';
       document.getElementById('formulario').style.display = 'block';
       document.getElementById('musica').play();
+       let total = localStorage.getItem('totalRegistros') || 0;
+    document.getElementById('contadorRegistros').textContent = `Papu se registraron ${total} papus.`;
+  
     }
 
     function enviarDatos() {
+      let total = parseInt(localStorage.getItem('totalRegistros') || '0');
+    total++;
+    localStorage.setItem('totalRegistros', total);
+
+    document.getElementById('contadorRegistros').textContent = `Se registraron ${total} personas.`;
+
       setTimeout(() => {
         // Redirige a la segunda página donde sí está todo lo final
         window.location.href = 'final.html';
-      }, 8000);
+      }, 8000); 
     }
   </script>
 
