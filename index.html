@@ -121,6 +121,8 @@
     }
 
   function enviarDatos() {
+     const boton = document.querySelector('#formulario button');
+  boton.disabled = true; 
     const nombre = document.getElementById('nombre').value;
     const clave = document.getElementById('clave').value;
 
