@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi página</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    #inicio {
+      height: 100vh;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 2;
+      position: relative;
+    }
+
+    #videoFondo {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    #formulario {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      z-index: 3;
+      position: relative;
+      color: white;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de inicio -->
+  <div id="inicio">
+    <img src="imagen.png" width="300" alt="Mi imagen central"><br>
+    <button onclick="empezar()">Haz clic</button>
+  </div>
+
+  <!-- Video de fondo -->
+  <video id="videoFondo" autoplay loop muted>
+    <source src="video.mp4" type="video/mp4">
+    Tu navegador no soporta el video.
+  </video>
+
+  <!-- Música de fondo -->
+  <audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta el audio.
+  </audio>
+
+  <!-- Formulario -->
+  <div id="formulario">
+    <h2>Ingresa tus datos</h2>
+    <input type="text" placeholder="Nombre"><br>
+    <input type="password" placeholder="Contraseña"><br>
+    <button>Enviar</button>
+  </div>
+
+  <script>
+    function empezar() {
+      document.getElementById('inicio').style.display = 'none';
+      document.getElementById('videoFondo').style.display = 'block';
+      document.getElementById('formulario').style.display = 'block';
+      document.getElementById('musica').play();
+    }
+  </script>
+
+</body>
+</html>
