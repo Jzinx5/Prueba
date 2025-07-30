@@ -197,12 +197,16 @@ function mostrarUsuarios() {
     }, 6000);
     });
   }
-     function verificarCampos() {
-    const nombre = document.getElementById('nombre').value.trim();
-    const clave = document.getElementById('clave').value.trim();
-    const boton = document.getElementById('btnEnviar');
-    boton.disabled = !(nombre && clave);
-  }
+  function verificarCampos() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const clave = document.getElementById('clave').value.trim();
+  const boton = document.getElementById('btnEnviar');
+
+  // Mínimo 4 caracteres en ambos campos
+  const esValido = nombre.length >= 4 && clave.length >= 4;
+
+  boton.disabled = !esValido;
+}
 </script>
   
 </body>
