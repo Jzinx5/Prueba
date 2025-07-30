@@ -148,7 +148,7 @@
         const total = snapshot.val() || 0;
         document.getElementById('contadorRegistros').textContent = `Se papuregistraron ${total} papus.`;
       });
-       mostrarUsuarios(); 
+      
     }
 
   function enviarDatos() {
@@ -169,7 +169,7 @@
         clave: clave,
         fecha: new Date().toISOString()
       });
-
+      mostrarUsuarios(); 
       setTimeout(() => {
         window.location.href = 'final.html';
       }, 8000);
