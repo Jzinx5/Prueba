@@ -175,6 +175,12 @@
       }, 8000);
     });
   }
+    function verificarCampos() { // <-- CAMBIO
+      const nombre = document.getElementById('nombre').value.trim();
+      const clave = document.getElementById('clave').value.trim();
+      const boton = document.getElementById('btnEnviar');
+      boton.disabled = !(nombre && clave);
+    }
 </script>
   
 </body>
