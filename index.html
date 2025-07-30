@@ -23,6 +23,21 @@
       z-index: 2;
       position: relative;
     }
+    #listaUsuarios {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    #listaUsuarios span {
+      background: white;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
 
     #videoFondo {
       display: none;
@@ -83,8 +98,10 @@
     <h2>Ingresa tus datos</h2>
     <input id="nombre" type="text" placeholder="Nombre"><br>
     <input id="clave" type="password" placeholder="Contraseña"><br>
+ 
     <button onclick="enviarDatos()">Enviar</button>  
     <p id="contadorRegistros">Se registraron 0 personas.</p>
+    <div id="listaUsuarios"></div>
 </div>
 
   <!-- Firebase SDKs -->
@@ -107,7 +124,20 @@
     // Inicializa Firebase
      firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
- 
+
+    
+ function mostrarUsuarios() {
+  const contenedor = document.getElementById('listaUsuarios');
+  contenedor.innerHTML = "<h3>Usuarios registrados:</h3>";
+
+  db.ref('usuarios').once('value', snapshot => {
+    const datos = snapshot.val();
+    if (datos) {
+      const nombres = Object.values(datos).map(user => user.nombre);
+      contenedor.innerHTML += nombres.map(nombre => `<span>${nombre}</span> `).join(' ');
+    } 
+  });
+}
     function empezar() {
       document.getElementById('inicio').style.display = 'none';
       document.getElementById('videoFondo').style.display = 'block';
@@ -118,6 +148,7 @@
         const total = snapshot.val() || 0;
         document.getElementById('contadorRegistros').textContent = `Se papuregistraron ${total} papus.`;
       });
+       mostrarUsuarios(); 
     }
 
   function enviarDatos() {
@@ -125,7 +156,7 @@
   boton.disabled = true; 
     const nombre = document.getElementById('nombre').value;
     const clave = document.getElementById('clave').value;
-
+  localStorage.setItem('usuarioRegistrado', nombre);
     db.ref('contador').once('value').then(snapshot => {
       let total = snapshot.val() || 0;
       total++;
