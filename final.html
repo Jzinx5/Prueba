@@ -108,7 +108,42 @@
     </video>
   </div>
 </div>
+<!-- Botón flotante "Lista de usuarios" -->
+<div id="listaUsuariosBtn" style="
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  font-size: 0.8em;
+  cursor: pointer;
+  color: #00ffcc;
+  text-decoration: underline;
+  z-index: 1000;
+" onclick="mostrarListaUsuarios()">Lista de usuarios</div>
 
+<!-- Contenedor emergente con la lista -->
+<div id="listaUsuariosContainer" style="
+  position: fixed;
+  bottom: 40px;
+  right: 10px;
+  background: #111;
+  border: 1px solid #00ffff;
+  padding: 10px;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 0.75em;
+  z-index: 1000;
+  border-radius: 6px;
+">
+  <div style="text-align: right;">
+    <span style="cursor:pointer; color: #ff5050;" onclick="cerrarListaUsuarios()">[Cerrar]</span>
+  </div>
+  <div id="contenidoListaUsuarios">Cargando...</div>
+</div>
+
+
+
+  
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -160,6 +195,36 @@ function mostrarUltimoUsuario() {
     const videoDiv = document.getElementById("videoSecreto");
     videoDiv.style.display = (videoDiv.style.display === "none") ? "block" : "none";
   }
+
+function mostrarListaUsuarios() {
+  const contenedor = document.getElementById('contenidoListaUsuarios');
+  const caja = document.getElementById('listaUsuariosContainer');
+  caja.style.display = 'block';
+
+  db.ref('usuarios').once('value', snapshot => {
+    const datos = snapshot.val();
+    if (datos) {
+      const usuarios = Object.values(datos);
+
+      usuarios.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+      let listaHTML = '<ul style="padding-left: 15px;">';
+      usuarios.forEach((usuario) => {
+        const fechaObj = new Date(usuario.fecha);
+        const hora = fechaObj.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+        listaHTML += `<li>${usuario.nombre} — ${hora}</li>`;
+      });
+      listaHTML += '</ul>';
+      contenedor.innerHTML = listaHTML;
+    } else {
+      contenedor.innerHTML = "No hay usuarios registrados.";
+    }
+  });
+}
+
+function cerrarListaUsuarios() {
+  document.getElementById('listaUsuariosContainer').style.display = 'none';
+}
 
   window.onload = () => {
     mostrarUltimoUsuario();
