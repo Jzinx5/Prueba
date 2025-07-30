@@ -84,7 +84,28 @@
   <audio id="musicaFinal" autoplay loop>
     <source src="musica_final.mp3" type="audio/mpeg">
   </audio>
+<div id="secretoContainer" style="
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+  z-index: 1000;
+">
+  <span 
+    id="btnSecreto" 
+    style="cursor: pointer; color: #00ffff; text-decoration: underline; font-size: 1.2em;"
+    onclick="mostrarSecreto()"
+  >
+    Secreto
+  </span>
 
+  <div id="videoSecreto" style="margin-top: 20px; display: none;">
+    <video controls width="300">
+      <source src="yipi.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
 
   
 <div id="usuarioFinal" style="margin-top: 30px; font-size: 1.2em; text-align: center;"></div>
@@ -155,12 +176,14 @@ function mostrarUltimoUsuario() {
     }
   });
 }
- function mostrarSecreto() {
-      const videoDiv = document.getElementById("videoSecreto");
-      videoDiv.style.display = "block";
-    }
+  function mostrarSecreto() {
+    const videoDiv = document.getElementById("videoSecreto");
+    videoDiv.style.display = (videoDiv.style.display === "none") ? "block" : "none";
+  }
 
+  window.onload = () => {
     mostrarUltimoUsuario();
+  };
   </script>
 </body>
 </html>
