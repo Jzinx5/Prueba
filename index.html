@@ -96,10 +96,18 @@
   <!-- Formulario -->
   <div id="formulario">
     <h2>Ingresa tus datos</h2>
-     <input type="text" id="nombre" oninput="verificarCampos()">
+        <div class="campo">
+      <label for="nombre">Nombre:</label><br>
+      <input type="text" id="nombre" oninput="verificarCampos()"><br>
       <span id="errorNombre" class="error"></span>
-      <input type="password" id="clave" oninput="verificarCampos()">
+    </div>
+    
+    <div class="campo">
+      <label for="clave">Clave:</label><br>
+      <input type="password" id="clave" oninput="verificarCampos()"><br>
       <span id="errorClave" class="error"></span>
+    </div>
+
 
  
     <button id="btnEnviar" onclick="enviarDatos()" disabled>Enviar</button>  
@@ -136,10 +144,9 @@ function mostrarUsuarios() {
   db.ref('usuarios').once('value', snapshot => {
     const datos = snapshot.val();
     if (datos) {
-      // Convertir a array con clave para conservar la referencia
+   
       const usuarios = Object.values(datos);
 
-      // Ordenar por fecha descendente
       usuarios.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
       const ultimo = usuarios[0]; // el más reciente
