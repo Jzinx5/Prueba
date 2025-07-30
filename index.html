@@ -96,10 +96,10 @@
   <!-- Formulario -->
   <div id="formulario">
     <h2>Ingresa tus datos</h2>
-    <input id="nombre" type="text" placeholder="Nombre"><br>
-    <input id="clave" type="password" placeholder="Contraseña"><br>
+     <input id="nombre" type="text" placeholder="Nombre" oninput="verificarCampos()"><br>
+    <input id="clave" type="password" placeholder="Contraseña" oninput="verificarCampos()"><br>
  
-    <button onclick="enviarDatos()">Enviar</button>  
+    <button id="btnEnviar" onclick="enviarDatos()" disabled>Enviar</button>  
     <p id="contadorRegistros">Se registraron 0 personas.</p>
     <div id="listaUsuarios"></div>
 </div>
@@ -191,12 +191,12 @@ function mostrarUsuarios() {
       }, 6000);
     });
   }
-    function verificarCampos() { // <-- CAMBIO
-      const nombre = document.getElementById('nombre').value.trim();
-      const clave = document.getElementById('clave').value.trim();
-      const boton = document.getElementById('btnEnviar');
-      boton.disabled = !(nombre && clave);
-    }
+     function verificarCampos() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const clave = document.getElementById('clave').value.trim();
+    const boton = document.getElementById('btnEnviar');
+    boton.disabled = !(nombre && clave);
+  }
 </script>
   
 </body>
