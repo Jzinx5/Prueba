@@ -104,7 +104,6 @@
       measurementId: "G-EG9JGLXNGD"
     };
 
-    // Inicializa Firebase
      firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
@@ -116,10 +115,10 @@ function mostrarUltimoUsuario() {
   db.ref('usuarios').once('value', snapshot => {
     const datos = snapshot.val();
     if (datos) {
-      // Convertir a array con clave para conservar la referencia
+      
       const usuarios = Object.values(datos);
 
-      // Ordenar por fecha descendente
+
       usuarios.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
       const ultimo = usuarios[0]; // el más reciente
