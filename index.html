@@ -126,18 +126,19 @@
     const db = firebase.database();
 
     
- function mostrarUsuarios() {
+function mostrarUsuarios() {
   const contenedor = document.getElementById('listaUsuarios');
-  contenedor.innerHTML = "<h3>Usuarios registrados:</h3>";
+  contenedor.innerHTML = "<h3>Último registrado:</h3>";
 
-  db.ref('usuarios').once('value', snapshot => {
+  db.ref('usuarios').limitToLast(1).once('value', snapshot => {
     const datos = snapshot.val();
     if (datos) {
-      const nombres = Object.values(datos).map(user => user.nombre);
-      contenedor.innerHTML += nombres.map(nombre => `<span>${nombre}</span> `).join(' ');
-    } 
+      const ultimo = Object.values(datos)[0];
+      contenedor.innerHTML += `<span>${ultimo.nombre}</span>`;
+    }
   });
 }
+
     function empezar() {
       document.getElementById('inicio').style.display = 'none';
       document.getElementById('videoFondo').style.display = 'block';
