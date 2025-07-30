@@ -128,17 +128,32 @@
     
 function mostrarUsuarios() {
   const contenedor = document.getElementById('listaUsuarios');
-  contenedor.innerHTML = "<h3>Último registrado:</h3>";
+  contenedor.innerHTML = "<h3>Último papu registrado:</h3>";
 
-  db.ref('usuarios').limitToLast(1).once('value', snapshot => {
+  db.ref('usuarios').once('value', snapshot => {
     const datos = snapshot.val();
     if (datos) {
-      const ultimo = Object.values(datos)[0];
-      contenedor.innerHTML += `<span>${ultimo.nombre}</span>`;
+      // Convertir a array con clave para conservar la referencia
+      const usuarios = Object.values(datos);
+
+      // Ordenar por fecha descendente
+      usuarios.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+      const ultimo = usuarios[0]; // el más reciente
+      const fechaObj = new Date(ultimo.fecha);
+      const hora = fechaObj.toLocaleTimeString('es-PE', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      contenedor.innerHTML += `
+        <span>${ultimo.nombre} — ${hora}</span>
+      `;
+    } else {
+      contenedor.innerHTML += "<span>Aún no hay registros</span>";
     }
   });
 }
-
     function empezar() {
       document.getElementById('inicio').style.display = 'none';
       document.getElementById('videoFondo').style.display = 'block';
