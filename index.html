@@ -185,10 +185,16 @@ function mostrarUsuarios() {
         clave: clave,
         fecha: new Date().toISOString()
       });
-     
-      setTimeout(() => {
-        window.location.href = 'final.html';
-      }, 6000);
+       const mensaje = document.createElement('p');
+    mensaje.textContent = 'Procesando registro... espera un momento papu 😎';
+    mensaje.style.marginTop = '20px';
+    mensaje.style.fontWeight = 'bold';
+    document.getElementById('formulario').appendChild(mensaje);
+    
+    // Redirigir luego de 6 segundos
+    setTimeout(() => {
+      window.location.href = 'final.html';
+    }, 6000);
     });
   }
      function verificarCampos() {
