@@ -89,6 +89,25 @@
   
 <div id="usuarioFinal" style="margin-top: 30px; font-size: 1.2em; text-align: center;"></div>
 
+<div id="secretoContainer" style="margin-top: 30px; text-align: center;">
+    <span 
+      id="btnSecreto" 
+      style="cursor: pointer; color: #00ffff; text-decoration: underline; font-size: 1.2em;"
+      onclick="mostrarSecreto()"
+    >
+      Secreto
+    </span>
+
+    <div id="videoSecreto" style="margin-top: 20px; display: none;">
+      <video controls width="300">
+        <source src="yipi.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+
+
+  
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -136,8 +155,12 @@ function mostrarUltimoUsuario() {
     }
   });
 }
-mostrarUltimoUsuario();
-</script>
-  
+ function mostrarSecreto() {
+      const videoDiv = document.getElementById("videoSecreto");
+      videoDiv.style.display = "block";
+    }
+
+    mostrarUltimoUsuario();
+  </script>
 </body>
 </html>
