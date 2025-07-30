@@ -121,7 +121,7 @@ function mostrarUltimoUsuario() {
 
       usuarios.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-      const ultimo = usuarios[0]; // el más reciente
+      const ultimo = usuarios[1];
       const fechaObj = new Date(ultimo.fecha);
       const hora = fechaObj.toLocaleTimeString('es-PE', {
         hour: '2-digit',
